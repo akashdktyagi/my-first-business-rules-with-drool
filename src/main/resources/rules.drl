@@ -1,0 +1,43 @@
+import java.util.Arrays
+import java.util.HashMap
+import java.util.List
+import java.util.Map
+import com.example.demo.MyProjectPojo
+
+global java.util.Map maturityMatrix;
+global com.example.demo.MyCFPojo myCFPojo;
+
+dialect "mvel"
+
+rule "Low Maturity"
+    when
+        MyProjectPojo(maturityMatrix.get("LOW_MATURITY") contains id)
+    then
+        System.out.println("==========The Project is Low Maturity=============");
+        myCFPojo.setName("CF_LOW");
+        myCFPojo.setDescription("This is Low Maturity CF FW.")
+        myCFPojo.setComplianceFWPath("CF_LOW_FULL_PATH");
+        myCFPojo.setLabelColor("RED");
+end
+
+rule "Medium Maturity"
+    when
+        MyProjectPojo(maturityMatrix.get("MEDIUM_MATURITY") contains id)
+    then
+        System.out.println("==========The Project is MEDIUM Maturity=============");
+        myCFPojo.setName("CF_MEDIUM");
+        myCFPojo.setDescription("This is Medium Maturity CF FW.")
+        myCFPojo.setComplianceFWPath("CF_MEDIUM_FULL_PATH");
+        myCFPojo.setLabelColor("BLUE");
+end
+
+rule "High Maturity"
+    when
+        MyProjectPojo(maturityMatrix.get("HIGH_MATURITY") contains id)
+    then
+        System.out.println("==========The Project is HIGH Maturity=============");
+        myCFPojo.setName("CF_HIGH");
+        myCFPojo.setDescription("This is HIGH Maturity CF FW.")
+        myCFPojo.setComplianceFWPath("CF_HIGH_FULL_PATH");
+        myCFPojo.setLabelColor("GREEN");
+end
